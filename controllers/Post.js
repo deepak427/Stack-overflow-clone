@@ -94,7 +94,7 @@ export const deletePost = async (req, res) => {
   const post = await Post.findById(_id);
   var public_id;
   var type;
-  if (post.url !== "") {
+  if (post.url) {
     public_id = post.url.split("/").pop().split(".")[0];
     type =
       post.url.split("/").pop().split(".")[1] === "mp4" ? "video" : "image";
@@ -104,7 +104,7 @@ export const deletePost = async (req, res) => {
     return res.status(200).send("Post unavalible");
   }
   try {
-    if (post.url !== "") {
+    if (post.url) {
       cloudinary.v2.uploader.destroy(
         public_id,
         { invalidate: true, resource_type: type },
