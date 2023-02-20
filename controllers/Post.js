@@ -92,21 +92,27 @@ export const getAllPosts = async (req, res) => {
 export const deletePost = async (req, res) => {
   const { id: _id } = req.params;
   const post = await Post.findById(_id);
-  const public_id = post.url.split("/").pop().split(".")[0];
-  const type =
-    post.url.split("/").pop().split(".")[1] === "mp4" ? "video" : "image";
+  var public_id;
+  var type;
+  if (post.url !== "") {
+    public_id = post.url.split("/").pop().split(".")[0];
+    type =
+      post.url.split("/").pop().split(".")[1] === "mp4" ? "video" : "image";
+  }
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
     return res.status(200).send("Post unavalible");
   }
   try {
-    cloudinary.v2.uploader.destroy(
-      public_id,
-      { invalidate: true, resource_type: type },
-      function (error, result) {
-        console.log(result, error);
-      }
-    );
+    if (post.url !== "") {
+      cloudinary.v2.uploader.destroy(
+        public_id,
+        { invalidate: true, resource_type: type },
+        function (error, result) {
+          console.log(result, error);
+        }
+      );
+    }
     await Post.findByIdAndRemove(_id);
     res.status(200).json({ message: "Successfully deleted..." });
   } catch (error) {
