@@ -3,7 +3,7 @@ import User from "../models/auth.js";
 import mongoose from "mongoose";
 
 const stripe = new Stripe(
-  process.env.STRIPE_KEY,
+  "sk_test_51MaDXESFuHQsX81wkuGc1wxcr1XUHfrWp5fAGBZh6X00Ela9OoLNVJif6C6tLqQJZWodGXKnF4rynyQlYfyB9KFZ006v90eybH",
   {
     apiVersion: "2020-08-27",
   }

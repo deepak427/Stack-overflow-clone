@@ -3,7 +3,7 @@ import nodemailer from "nodemailer"
 import jwt from "jsonwebtoken";
 
 const config = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: "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",
 });
 
 const openai = new OpenAIApi(config);
