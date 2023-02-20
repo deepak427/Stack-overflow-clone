@@ -1,4 +1,4 @@
-import Question from "../models/Question.js";
+import User from "../models/auth.js";
 import Questions from "../models/Question.js";
 import mongoose from "mongoose";
 
@@ -7,7 +7,16 @@ export const AskQuestion = async (req, res) => {
   const postQuestion = new Questions(postQuestionData);
   try {
     await postQuestion.save();
-    res.status(200).json("posted a question successfully");
+    if (postQuestionData.subscription !== "Gold") {
+      const updatedProfile = await User.findByIdAndUpdate(
+        postQuestionData.userId,
+        { $set: {remainingQuestions: postQuestionData.remainingQuestions.toString()} },
+        { new: true }
+      );
+      res.status(200).json({message: "posted a question successfully", updatedProfile}); 
+    }else{
+      res.status(200).json({message: "posted a question successfully", updatedProfile: null}); 
+    }
   } catch (error) {
     console.log(error);
     res.status(409).json("Could't post a new question");
@@ -30,7 +39,7 @@ export const deleteQuestion = async (req, res) => {
     return res.status(200).send("Question unavalible");
   }
   try {
-    await Question.findByIdAndRemove(_id);
+    await Questions.findByIdAndRemove(_id);
     res.status(200).json({ message: "Successfully deleted..." });
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -46,7 +55,7 @@ export const voteQuestion = async (req, res) => {
     return res.status(200).send("Question unavalible");
   }
   try {
-    const question = await Question.findById(_id);
+    const question = await Questions.findById(_id);
     const upIndex = question.upVotes.findIndex((id) => id === String(userId));
     const downIndex = question.downVotes.findIndex(
       (id) => id === String(userId)
@@ -80,7 +89,7 @@ export const voteQuestion = async (req, res) => {
         }
       }
     
-    await Question.findByIdAndUpdate(_id, question)
+    await Questions.findByIdAndUpdate(_id, question)
 
 
     res.status(200).json({ message: "Successfully Voted..." });
