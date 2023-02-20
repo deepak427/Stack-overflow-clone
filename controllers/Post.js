@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import cloudinary from "cloudinary";
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRECT ,
+  cloud_name: "drwb3xq26",
+  api_key: "183644779267344",
+  api_secret: "PvbozBEk7eEiJbsaiX9AILDXj3A",
 });
 
 async function handleUpload(path) {
