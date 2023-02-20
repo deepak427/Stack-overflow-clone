@@ -1,9 +1,12 @@
 import Stripe from "stripe";
 import User from "../models/auth.js";
 import mongoose from "mongoose";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const stripe = new Stripe(
-  "sk_test_51MaDXESFuHQsX81wkuGc1wxcr1XUHfrWp5fAGBZh6X00Ela9OoLNVJif6C6tLqQJZWodGXKnF4rynyQlYfyB9KFZ006v90eybH",
+  process.env.STRIPE_KEY,
   {
     apiVersion: "2020-08-27",
   }

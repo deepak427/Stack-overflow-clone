@@ -1,9 +1,12 @@
 import { Configuration, OpenAIApi } from "openai";
 import nodemailer from "nodemailer"
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const config = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(config);

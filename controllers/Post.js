@@ -1,11 +1,14 @@
 import Post from "../models/Post.js";
 import mongoose from "mongoose";
 import cloudinary from "cloudinary";
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 cloudinary.config({
-  cloud_name: "drwb3xq26",
-  api_key: "183644779267344",
-  api_secret: "PvbozBEk7eEiJbsaiX9AILDXj3A",
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRECT ,
 });
 
 async function handleUpload(path) {
