@@ -41,12 +41,9 @@ export const verify = async (req, res) => {
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true,
       auth: {
         user: "negid0253@gmail.com",
-        pass: "rznwnpkzdgacjwoq",
+        pass: "lhabarwdeusblhig",
       },
     });
 
