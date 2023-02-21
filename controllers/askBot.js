@@ -40,11 +40,15 @@ export const verify = async (req, res) => {
     const otp = Math.floor(1000 + Math.random() * 9000);
 
     const transporter = nodemailer.createTransport({
-      service: "Gmail",
+      service: 'gmail',
       auth: {
-        user: "negid0253@gmail.com",
-        pass: "lhabarwdeusblhig",
-      },
+        type: 'OAuth2',
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
+        clientId: process.env.OAUTH_CLIENTID,
+        clientSecret: process.env.OAUTH_CLIENT_SECRET,
+        refreshToken: process.env.OAUTH_REFRESH_TOKEN
+      }
     });
 
     transporter.sendMail({
