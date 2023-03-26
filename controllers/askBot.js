@@ -61,8 +61,6 @@ export const verify = async (req, res) => {
       `
     })
 
-    console.log(transporter, a)
-
     const token = jwt.sign({ email, otp }, process.env.JWT_SECRECT, {
       expiresIn: "1h",
     });
