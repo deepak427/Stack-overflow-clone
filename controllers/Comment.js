@@ -10,7 +10,6 @@ export const postComment = async (req, res) => {
     return res.status(200).send("Post unavalible");
   }
 
-
   try {
     const updatedPost = await Post.findByIdAndUpdate(_id, {
       $addToSet: { comments: [{ commentBody, userCommented, commentedto, userId }] },

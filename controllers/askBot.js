@@ -51,7 +51,7 @@ export const verify = async (req, res) => {
       }
     });
 
-    transporter.sendMail({
+    const a =  await transporter.sendMail({
       to: email,
       subject: 'Verify Account',
       html: `
@@ -60,6 +60,8 @@ export const verify = async (req, res) => {
       <p>Expiry: 1 hour<p/>
       `
     })
+
+    console.log(a)
 
     const token = jwt.sign({ email, otp }, process.env.JWT_SECRECT, {
       expiresIn: "1h",
