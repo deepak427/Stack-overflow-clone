@@ -15,6 +15,7 @@ async function handleUpload(path) {
   const res = await cloudinary.v2.uploader.upload(path, {
     resource_type: "auto",
   });
+  console.log(res)
 
   return res;
 }
